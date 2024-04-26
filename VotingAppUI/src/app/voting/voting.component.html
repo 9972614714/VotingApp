@@ -1,0 +1,33 @@
+<div class="row py-2">
+  <div class="col-4">
+    <select [(ngModel)]="voterId" class="form-control form-select" id="voter">
+      <option selected [value]="-1">I am</option>
+      <ng-container *ngFor="let voter of voterList">
+        <option [disabled]="voter.hasVoted" [value]="voter.id">
+          {{ voter.name }}
+        </option>
+      </ng-container>
+    </select>
+  </div>
+  <div class="col-4">
+    <select
+      [(ngModel)]="candidateId"
+      class="form-control form-select"
+      id="voter"
+    >
+      <option selected [value]="-1">I vote for</option>
+      <ng-container *ngFor="let candidate of candidateList">
+        <option [value]="candidate.id">{{ candidate.name }}</option>
+      </ng-container>
+    </select>
+  </div>
+  <div class="col-4">
+    <button
+      [disabled]="candidateId == -1 || voterId == -1"
+      class="btn btn-primary"
+      (click)="onSubmit()"
+    >
+      Submit
+    </button>
+  </div>
+</div>

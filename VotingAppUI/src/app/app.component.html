@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 py-2">
+      <h3>Voting App</h3>
+    </div>
+  </div>
+  <div class="row py-2">
+    <div class="col-12 ">
+      <app-add-user [userType]="userType" class="align-right"></app-add-user>
+    </div>
+  </div>
+  <div class="row py-2">
+    <div class="col-6">
+      <app-voter [voterList]="voterList"></app-voter>
+    </div>
+    <div class="col-6 py-2">
+      <app-candidate-list [candidateList]="candidateList"></app-candidate-list>
+    </div>
+  </div>
+<hr/>
+  <div class="row py-2">
+    <div class="col-12">
+      <h1>Vote!</h1>
+    </div>
+    <div  class="col-12">
+      <app-voting  [voterList]="voterList" [candidateList]="candidateList"></app-voting>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,16 @@
+<div class="container">
+  <label
+    ><b>{{
+      userType === UserTypeEnum.voter ? "New Voter Name" : "New Candidate Name"
+    }}</b></label
+  >
+  <input [(ngModel)]="name" />
+  <button
+    [disabled]="name?.trim()?.length === 0"
+    class="btn btn-primary btn-sm"
+    (click)="onSave(name)"
+  >
+    Save
+  </button>
+  <button class="btn btn-secondary btn-sm">Cancel</button>
+</div>
