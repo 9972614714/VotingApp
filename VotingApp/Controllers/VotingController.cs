@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using VotingApp.Controllers.Voting;
 using VotingApp.Core.Interfaces.Services;
-using VotingApp.Core.Models;
 
 namespace VotingApp.Controllers
 {
@@ -10,15 +9,8 @@ namespace VotingApp.Controllers
     public class VotingController : ControllerBase
     {
         private readonly IVotingService _votingService;
-
-        private const string _voterExists = "Voter Name already exists";
-        private const string _candidateExists = "Candidate Name already exists";
         private const string _voterNameInValid = "Voter Name is empty or null";
         private const string _candidateNameInValid = "Candidate is empty or null";
-        private const string _votedAlready = "Voter voted already";
-
-
-
 
         public VotingController(IVotingService votingService)
         {
@@ -46,20 +38,23 @@ namespace VotingApp.Controllers
 
         public ActionResult<VotingDto> SaveVoter([FromBody] VoterDto voter)
         {
-            if(checkVoterDataInvalid(voter))
+            if (checkVoterDataInvalid(voter))
             {
                 return BadRequest(_voterNameInValid);
             }
 
-            if(checkVoterDataAlreadyExists(voter.Name))
+            try
             {
-                return BadRequest(_voterExists);
+                var dataToSave = voter.ToVoterModel();
+
+                _votingService.AddVoter(dataToSave);
+
+                return Ok(voter);
             }
-            var dataToSave = voter.ToVoterModel();
-
-            _votingService.AddVoter(dataToSave);
-
-            return Ok(voter);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost("SaveCandidate")]
@@ -71,16 +66,21 @@ namespace VotingApp.Controllers
             {
                 return BadRequest(_candidateNameInValid);
             }
-
-            if (checkCandidateDataAlreadyExists(candidate.Name))
+            try
             {
-                return BadRequest(_candidateExists);
+                var dataToSave = candidate.ToCandidateModel();
+
+                _votingService.AddCandidate(dataToSave);
+
+                return Ok(candidate);
+
             }
-            var dataToSave = candidate.ToCandidateModel();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
-            _votingService.AddCandidate(dataToSave);
-
-            return Ok(candidate);
+            
         }
 
         [HttpPost("MarkVoting")]
@@ -92,69 +92,23 @@ namespace VotingApp.Controllers
             {
                 return BadRequest();
             }
-            
-            if (checkVotingDataAlreadyExists(votingResult.VoterId))
+
+            try
             {
-                return BadRequest(_votedAlready);
+                var dataToSave = votingResult.ToVotingResultsModel();
+
+                _votingService.MarkVoting(dataToSave);
+
+                return Ok();
+
             }
-            var dataToSave = votingResult.ToVotingResultsModel();
-
-            _votingService.MarkVoting(dataToSave);
-
-            return Ok();
-        }
-
-        #region Private_Methods
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="voterId"></param>
-        /// <returns></returns>
-        private bool checkVotingDataAlreadyExists(int voterId)
-        {
-            List<VotingResults> votingResults = _votingService.GetVotingResults();
-
-            return votingResults.Exists(v => v.VoterId == voterId);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        private bool checkVoterDataAlreadyExists(string name)
-        {
-            List<Voter> voters = _votingService.GetVoters();
-
-            return voters.Exists(v => v.Name.ToLower() == name.ToLower());
-            
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        private bool checkCandidateDataAlreadyExists(string name)
-        {
-            List<Candidate> candidates = _votingService.GetCandidates();
-
-            return candidates.Exists(v => v.Name.ToLower() == name.ToLower());
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="votingResult"></param>
-        /// <returns></returns>
-        private bool checkVotingDataInvalid(VotingResultDto votingResult)
-        {
-            if (votingResult == null || votingResult.CandidateId == 0 || votingResult.VoterId == 0)
+            catch (Exception ex)
             {
-                return true;
-            }
 
-            return false;
+                return BadRequest(ex);
+            }
+            
+          
         }
 
         /// <summary>
@@ -187,6 +141,20 @@ namespace VotingApp.Controllers
             return false;
         }
 
-        #endregion
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="votingResult"></param>
+        /// <returns></returns>
+        private bool checkVotingDataInvalid(VotingResultDto votingResult)
+        {
+            if (votingResult == null || votingResult.CandidateId == 0 || votingResult.VoterId == 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

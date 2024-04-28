@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VotingApp", "VotingApp\VotingApp.csproj", "{A2C6F6E3-9752-4B7F-BDA4-462992F863F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VotingApp", "VotingApp\VotingApp.csproj", "{A2C6F6E3-9752-4B7F-BDA4-462992F863F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VotingApp.Core", "VotingApp.Core\VotingApp.Core.csproj", "{96DF0833-EC2F-4D52-A1D8-97DF66204774}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VotingApp.Core", "VotingApp.Core\VotingApp.Core.csproj", "{96DF0833-EC2F-4D52-A1D8-97DF66204774}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VotingApp.Service", "VotingApp.Service\VotingApp.Service.csproj", "{2386BB48-B173-4F08-92CF-47E68CFF9503}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VotingApp.Service", "VotingApp.Service\VotingApp.Service.csproj", "{2386BB48-B173-4F08-92CF-47E68CFF9503}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VotingApp.DataAccess", "VotingApp.DataAccess\VotingApp.DataAccess.csproj", "{6CF9E073-595C-4274-A542-2FE0867C2F56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VotingApp.DataAccess", "VotingApp.DataAccess\VotingApp.DataAccess.csproj", "{6CF9E073-595C-4274-A542-2FE0867C2F56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VotingApp.Test", "VotingApp.Test\VotingApp.Test.csproj", "{6CB2633E-6A23-4C43-BA7A-0051DBFBED0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{6CF9E073-595C-4274-A542-2FE0867C2F56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CF9E073-595C-4274-A542-2FE0867C2F56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CF9E073-595C-4274-A542-2FE0867C2F56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CB2633E-6A23-4C43-BA7A-0051DBFBED0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CB2633E-6A23-4C43-BA7A-0051DBFBED0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CB2633E-6A23-4C43-BA7A-0051DBFBED0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CB2633E-6A23-4C43-BA7A-0051DBFBED0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,24 +9,6 @@ namespace VotingApp.Core.Interfaces.Services
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        public List<Voter> GetVoters();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public List<Candidate> GetCandidates();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public List<VotingResults> GetVotingResults();
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="voter"></param>
         public void AddVoter(Voter voter);
 
