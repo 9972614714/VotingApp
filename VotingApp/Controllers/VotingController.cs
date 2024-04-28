@@ -11,6 +11,15 @@ namespace VotingApp.Controllers
     {
         private readonly IVotingService _votingService;
 
+        private const string _voterExists = "Voter Name already exists";
+        private const string _candidateExists = "Candidate Name already exists";
+        private const string _voterNameInValid = "Voter Name is empty or null";
+        private const string _candidateNameInValid = "Candidate is empty or null";
+        private const string _votedAlready = "Voter voted already";
+
+
+
+
         public VotingController(IVotingService votingService)
         {
             _votingService = votingService;
@@ -39,12 +48,12 @@ namespace VotingApp.Controllers
         {
             if(checkVoterDataInvalid(voter))
             {
-                return BadRequest();
+                return BadRequest(_voterNameInValid);
             }
 
             if(checkVoterDataAlreadyExists(voter.Name))
             {
-                return BadRequest();
+                return BadRequest(_voterExists);
             }
             var dataToSave = voter.ToVoterModel();
 
@@ -60,12 +69,12 @@ namespace VotingApp.Controllers
         {
             if (checkCandidateDataInvalid(candidate))
             {
-                return BadRequest();
+                return BadRequest(_candidateNameInValid);
             }
 
             if (checkCandidateDataAlreadyExists(candidate.Name))
             {
-                return BadRequest();
+                return BadRequest(_candidateExists);
             }
             var dataToSave = candidate.ToCandidateModel();
 
@@ -86,7 +95,7 @@ namespace VotingApp.Controllers
             
             if (checkVotingDataAlreadyExists(votingResult.VoterId))
             {
-                return BadRequest();
+                return BadRequest(_votedAlready);
             }
             var dataToSave = votingResult.ToVotingResultsModel();
 

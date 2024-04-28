@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { VoterComponent } from './voter/voter.component';
-import { CandidateListComponent } from './candidate-list/candidate-list.component';
-import { VotingComponent } from './voting/voting.component';
-import { AddUserComponent } from './add-user/add-user.component';
+import {VotingComponent} from './Components/voting/voting.component';
+import { VoterComponent } from './Components/voter/voter.component';
+import { CandidateListComponent } from './Components/candidate-list/candidate-list.component';
+import { AddUserComponent } from './Components/add-user/add-user.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -15,7 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
     VoterComponent,
     CandidateListComponent,
     VotingComponent,
-    AddUserComponent
+    AddUserComponent,
+    VotingComponent
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,18 @@
 <div class="container">
+  <div *ngIf="errorMessage" class="row">
+    <div class="col-12 py-2">
+      <div class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col-12 py-2">
       <h3>Voting App</h3>
     </div>
   </div>
   <div class="row py-2">
-    <div class="col-12 ">
+    <div class="col-12">
       <app-add-user [userType]="userType" class="align-right"></app-add-user>
     </div>
   </div>
@@ -17,14 +24,16 @@
       <app-candidate-list [candidateList]="candidateList"></app-candidate-list>
     </div>
   </div>
-<hr/>
+  <hr />
   <div class="row py-2">
     <div class="col-12">
       <h1>Vote!</h1>
     </div>
-    <div  class="col-12">
-      <app-voting  [voterList]="voterList" [candidateList]="candidateList"></app-voting>
+    <div class="col-12">
+      <app-voting
+        [voterList]="voterList"
+        [candidateList]="candidateList"
+      ></app-voting>
     </div>
   </div>
-
 </div>

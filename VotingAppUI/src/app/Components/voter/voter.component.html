@@ -1,0 +1,29 @@
+<div>
+  <table class="table table-bordered table-responsive">
+    <thead>
+      <tr>
+        <th colspan="1">Voters</th>
+        <th>
+          <button
+            class="btn btn-outline-primary btn-sm"
+            (click)="showVoterCreationSection()"
+          >
+            Add
+          </button>
+        </th>
+      </tr>
+      <tr>
+        <th scope="col" class="col-md-9">Name</th>
+        <th scope="col" class="col-md-3 align-center">Has voted</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let voter of voterList">
+        <tr>
+          <td>{{ voter.name }}</td>
+          <td class="align-center">{{ voter.hasVoted ? "Y" : "N" }}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

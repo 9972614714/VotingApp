@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { VoterModel } from './shared/voter.model';
-import { CandidateModel } from './shared/candidate.model';
-import { VotingService } from './service/voting.service';
-import { VoterBoothDataModel } from './shared/voter-booth-data';
-import { UserType } from './shared/EnumCollection/user-type';
+import { VoterModel } from './shared/models/voter.model';
+import { CandidateModel } from './shared/models/candidate.model';
+import { VoterBoothDataModel } from './shared/models/voter-booth-data';
+import { UserType } from './shared/enum-collections/user-type';
 import { Subscription } from 'rxjs';
+import { VotingNewService } from './service/voting-new.service';
 
 @Component({
   selector: 'app-root',
@@ -16,44 +16,36 @@ export class AppComponent {
   candidateList: CandidateModel[] = [];
   userType = UserType.voter;
 
-  votingObsSubscription:Subscription;
-  saveVoterObsSubscription:Subscription;
-  saveCandidateObsSubscription:Subscription;
-  saveMarkVotingObsSubscription:Subscription;
-  setUserTypeObsSubscription:Subscription;
+  votingObsSubscription: Subscription;
+  setUserTypeObsSubscription: Subscription;
+  errorSubscription: Subscription;
+  errorMessage = '';
 
-
-
-  constructor(private votingService: VotingService) {}
+  constructor(public votingService: VotingNewService) {}
 
   ngOnInit() {
-    this.votingObsSubscription= this.votingService.votingObs$.subscribe((result: VoterBoothDataModel) => {
-      this.voterList = result.votersData;
-      this.candidateList = result.candidatesData;
-    });
+    this.votingObsSubscription = this.votingService.votingObs$.subscribe(
+      (result: VoterBoothDataModel) => {
+        this.voterList = result.votersData;
+        this.candidateList = result.candidatesData;
+      }
+    );
 
-    this.saveMarkVotingObsSubscription = this.votingService.saveVoterObs$.subscribe(() => {
-      this.votingService.reload();
-    });
+    this.setUserTypeObsSubscription =
+      this.votingService.setUserTypeSubj.subscribe((type: UserType) => {
+        this.userType = type;
+      });
 
-    this.saveCandidateObsSubscription = this.votingService.saveCandidateObs$.subscribe(() => {
-      this.votingService.reload();
-    });
-
-    this.saveMarkVotingObsSubscription = this.votingService.markVotingObs$.subscribe(() => {
-      this.votingService.reload();
-    });
-
-    this.setUserTypeObsSubscription = this.votingService.setUserTypeObs.subscribe((type: UserType) => {
-      this.userType = type;
-    });
+    this.errorSubscription = this.votingService.errorMessageObs$.subscribe(
+      (ex: string) => {
+        this.errorMessage = ex;
+      }
+    );
   }
 
   ngOnDestroy() {
     this.votingObsSubscription.unsubscribe();
-    this.saveCandidateObsSubscription.unsubscribe();
-    this.saveMarkVotingObsSubscription.unsubscribe();
     this.setUserTypeObsSubscription.unsubscribe();
-    this.saveVoterObsSubscription.unsubscribe();
+    this.errorSubscription.unsubscribe();
   }
 }

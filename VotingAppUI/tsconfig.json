@@ -27,5 +27,6 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
     "strictPropertyInitialization": false,
+    "emitDecoratorMetadata": true,
   }
 }

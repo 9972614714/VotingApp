@@ -1,0 +1,29 @@
+<div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Candidates</th>
+        <th>
+          <button
+            class="btn btn-outline-primary btn-sm"
+            (click)="showCandidateCreationSection()"
+          >
+            Add
+          </button>
+        </th>
+      </tr>
+      <tr>
+        <th scope="col" class="col-md-10">Name</th>
+        <th scope="col" class="col-md-2">Votes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let candidate of candidateList">
+        <tr>
+          <td>{{ candidate.name }}</td>
+          <td>{{ candidate.votesGained }}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
